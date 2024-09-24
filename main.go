@@ -65,9 +65,13 @@ func main() {
 		log.Fatal(err)
 	}
 
+	if len(professors) > *sampleSize {
+		professors = professors[:*sampleSize]
+	}
+
 	for i, p := range professors {
 		randScores := [3]float32{float32(rand.Intn(maxRandScore)), float32(rand.Intn(maxRandScore)), float32(rand.Intn(maxRandScore))}
-		err = d.GradeCourseProfessor(p.UUID, courses[i].Code, "jim", randScores)
+		err = d.GradeCourseProfessor(p.UUID, courses[i].Code, faker.Person().Name(), randScores)
 		if err != nil {
 			log.Fatal(err)
 		}
